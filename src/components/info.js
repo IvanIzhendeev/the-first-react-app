@@ -1,9 +1,9 @@
 import React from "react";
 
 const Info = () => (
-  <div>
-    <h2>Погодное приложение</h2>
-    <p>Узнайте погоду в вашем городе</p>
+  <div className="col-sm-4">
+    <h5 className="m-1">Погодное приложение</h5>
+    <span className="m-1">Узнайте погоду в вашем городе</span>
   </div> 
 )
 
