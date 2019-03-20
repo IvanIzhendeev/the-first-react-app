@@ -23,19 +23,26 @@ class App extends React.Component{
     e.preventDefault();
     const city = e.target.elements.city.value;
     if(city){
-      const api_url = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${OPEN_WEATHER_API_KEY}&units=metric`);
-      const data = await api_url.json();
-      this.setState({
-        city: data.name,
-        temp: data.main.temp,
-        temp_max: data.main.temp_max,
-        temp_min: data.main.temp_min,
-        wind_speed: data.wind.speed,
-        wind_deg: data.wind.deg,
-        humidity: data.main.humidity,
-        pressure: data.main.pressure,
-        error: undefined
-      });
+      var data = new XMLHttpRequest();
+      data.open('GET', `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${OPEN_WEATHER_API_KEY}&units=metric`, true);
+      data.send();
+      var that = this;
+      data.onreadystatechange = function(){
+        if(data.readyState === 4){
+          data = JSON.parse(data.responseText);
+          that.setState({
+            city: data.name,
+            temp: data.main.temp,
+            temp_max: data.main.temp_max,
+            temp_min: data.main.temp_min,
+            wind_speed: data.wind.speed,
+            wind_deg: data.wind.deg,
+            humidity: data.main.humidity,
+            pressure: data.main.pressure,
+            error: undefined
+          });
+        }
+      }
     } else{
       this.setState({
         city: undefined,
